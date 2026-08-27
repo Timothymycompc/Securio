@@ -1,15 +1,15 @@
 :root {
-  --ink: #17211d;
-  --muted: #68756f;
-  --line: #d6dfda;
-  --paper: #f6f7f2;
-  --panel: #fffefa;
-  --accent: #e15d35;
-  --green: #2c6b55;
-  --code: #17231f;
+  --ink: #18201e;
+  --muted: #4f5c57;
+  --line: #c5cfca;
+  --paper: #f1f4f2;
+  --panel: #ffffff;
+  --accent: #b83f20;
+  --green: #175541;
+  --code: #182522;
 }
 * { box-sizing: border-box; }
-body { max-width: 1180px; margin: 0 auto; padding: 0 30px 34px; color: var(--ink); background: var(--paper); font-family: Georgia, 'Times New Roman', serif; }
+body { max-width: 1180px; margin: 0 auto; padding: 0 30px 34px; color: var(--ink); background: var(--paper); font-family: 'Trebuchet MS', Verdana, sans-serif; }
 .topbar { display: flex; align-items: center; gap: 28px; height: 72px; border-bottom: 1px solid var(--line); font-family: 'Courier New', monospace; }
 .brand { display: flex; align-items: center; gap: 9px; color: var(--ink); font-size: 20px; font-weight: 700; text-decoration: none; }
 .brand-mark { display: grid; place-items: center; width: 28px; height: 28px; color: #fff; background: var(--accent); border-radius: 50%; font: 700 16px Georgia, serif; }
@@ -17,9 +17,9 @@ body { max-width: 1180px; margin: 0 auto; padding: 0 30px 34px; color: var(--ink
 .github-link, footer a { color: var(--green); }
 .hero { display: flex; align-items: end; justify-content: space-between; gap: 30px; padding: 72px 0 68px; border-bottom: 1px solid var(--line); }
 .eyebrow { margin: 0 0 18px; color: var(--accent); font: 700 11px/1.2 'Courier New', monospace; letter-spacing: 2px; text-transform: uppercase; }
-h1 { margin: 0; font-size: clamp(46px, 7vw, 82px); line-height: .94; font-weight: 500; letter-spacing: -2px; }
+h1 { margin: 0; font-size: clamp(46px, 7vw, 82px); line-height: .98; font-weight: 700; letter-spacing: -2px; }
 h1 em { color: var(--accent); font-style: normal; }
-.intro { max-width: 510px; margin: 27px 0 0; color: var(--muted); font-size: 18px; line-height: 1.5; }
+.intro { max-width: 510px; margin: 27px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; }
 .hero-stat { display: flex; align-items: baseline; gap: 12px; padding-bottom: 6px; color: var(--muted); white-space: nowrap; font: 12px/1.35 'Courier New', monospace; }
 .hero-stat strong { color: var(--ink); font: 500 64px Georgia, serif; }
 .toolbar { display: flex; align-items: center; gap: 15px; padding: 27px 0 17px; font-family: 'Courier New', monospace; }
@@ -36,7 +36,7 @@ h1 em { color: var(--accent); font-style: normal; }
 .code, .request-label { color: var(--muted); font: 11px/1.5 'Courier New', monospace; overflow-wrap: anywhere; }
 .code { margin-top: 9px; }
 .request-label { margin-top: 16px; color: var(--green); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
-.request, .sample { margin: 6px 0 0; padding: 11px; overflow: auto; color: #5c6863; background: #f3f5ef; font: 11px/1.5 'Courier New', monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.request, .sample { margin: 6px 0 0; padding: 11px; overflow: auto; color: #263832; background: #eef2ef; font: 12px/1.55 'Courier New', monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
 button { border: 1px solid var(--accent); border-radius: 3px; padding: 8px 10px; color: var(--accent); background: transparent; font: 700 11px 'Courier New', monospace; cursor: pointer; white-space: nowrap; }
 button:hover { color: #fff; background: var(--accent); }
 button:focus-visible { outline: 2px solid #efb09b; outline-offset: 2px; }
