@@ -1,0 +1,33 @@
+name: Generate Securio samples
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'docs/samples/**'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Generate and publish samples
+        env:
+          RAPIDAPI_SECRET: ${{ secrets.RAPIDAPI_SECRET }}
+          RAPIDAPI_HOST: ${{ secrets.RAPIDAPI_HOST }}
+        run: node scripts/fetch_samples.js
