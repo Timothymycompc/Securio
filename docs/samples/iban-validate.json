@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/iban-validate",
+  "sampleRequest": {
+    "iban": "GB82WEST12345698765432"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

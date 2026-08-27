@@ -1,0 +1,14 @@
+{
+  "endpoint": "/v1/security/hash-generate",
+  "sampleRequest": {
+    "algorithm": "sha256",
+    "data": "hello world"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

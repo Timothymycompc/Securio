@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/html-sanitize",
+  "sampleRequest": {
+    "html": "<script>alert(1)</script><p>Hello</p>"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

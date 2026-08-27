@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/domain-check",
+  "sampleRequest": {
+    "domain": "example.com"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

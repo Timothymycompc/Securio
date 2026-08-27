@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/mac-address",
+  "sampleRequest": {
+    "mac": "00:1B:44:11:3A:B7"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

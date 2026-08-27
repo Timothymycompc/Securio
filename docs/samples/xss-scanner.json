@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/xss-scanner",
+  "sampleRequest": {
+    "text": "<img src=x onerror=alert(1)>"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

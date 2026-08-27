@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/base64-encode",
+  "sampleRequest": {
+    "data": "hello world"
+  },
+  "result": {
+    "status": 403,
+    "ok": false,
+    "body": {
+      "message": "You are not subscribed to this API."
+    }
+  }
+}

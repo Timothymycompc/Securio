@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/phone-validate",
+  "sampleRequest": {
+    "phone": "+14155552671"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

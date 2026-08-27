@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/profanity-filter",
+  "sampleRequest": {
+    "text": "this is some shitty text"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

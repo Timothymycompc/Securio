@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/url-analyze",
+  "sampleRequest": {
+    "url": "https://example.com/test?x=1"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/sqli-scanner",
+  "sampleRequest": {
+    "query": "SELECT * FROM users WHERE id = '1'"
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}

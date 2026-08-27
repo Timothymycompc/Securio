@@ -1,0 +1,13 @@
+{
+  "endpoint": "/v1/security/base64-decode",
+  "sampleRequest": {
+    "data": "aGVsbG8gd29ybGQ="
+  },
+  "result": {
+    "status": 429,
+    "ok": false,
+    "body": {
+      "message": "Too many requests"
+    }
+  }
+}
