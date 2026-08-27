@@ -31,31 +31,53 @@ function renderEndpoints(query = '') {
   container.replaceChildren();
 
   for (const [id, title, endpoint, request] of filtered) {
-  const article = document.createElement('article');
-  article.className = 'api';
-  article.innerHTML = `<div class="endpoint-title"><div class="endpoint-name"><span class="method">POST</span><strong>${title}</strong></div><button type="button" aria-expanded="false">View sample <span>+</span></button></div><div class="code">${endpoint}</div><div class="request-label">Example request</div><pre class="request">${JSON.stringify(request, null, 2)}</pre><pre class="sample">No sample loaded.</pre>`;
-  container.appendChild(article);
+    const article = document.createElement('article');
+    article.className = 'api';
+    const requestBody = JSON.stringify(request).replace(/'/g, "'\\''");
+    const curl = `curl -X POST https://toolsapi.p.rapidapi.com${endpoint} \\\n  -H "Content-Type: application/json" \\\n  -H "X-RapidAPI-Key: $RAPIDAPI_SECRET" \\\n  -H "X-RapidAPI-Host: toolsapi.p.rapidapi.com" \\\n  -d '${requestBody}'`;
 
-  const button = article.querySelector('button');
-  const output = article.querySelector('.sample');
-  button.addEventListener('click', async () => {
-    button.disabled = true;
-    button.setAttribute('aria-expanded', 'true');
-    button.innerHTML = 'Loading <span>...</span>';
-    output.classList.add('is-visible');
-    output.textContent = 'Loading...';
-    try {
-      const response = await fetch(`samples/${id}.json`);
-      if (!response.ok) throw new Error(`Sample unavailable (HTTP ${response.status}). Run the Generate Securio samples workflow.`);
-      output.textContent = JSON.stringify(await response.json(), null, 2);
-    } catch (error) {
-      output.textContent = `Unable to load sample. ${error.message}`;
-    } finally {
-      button.disabled = false;
-      button.innerHTML = 'Hide sample <span>−</span>';
-    }
-  });
-}
+    const header = document.createElement('div');
+    header.className = 'endpoint-title';
+    header.innerHTML = '<div class="endpoint-name"><span class="method">POST</span><strong></strong></div><button type="button" aria-expanded="false">View example <span>+</span></button>';
+    header.querySelector('strong').textContent = title;
+    article.appendChild(header);
+
+    const path = document.createElement('div');
+    path.className = 'code';
+    path.textContent = endpoint;
+    article.appendChild(path);
+    article.insertAdjacentHTML('beforeend', '<div class="request-label">cURL request</div>');
+
+    const requestCode = document.createElement('pre');
+    requestCode.className = 'request';
+    requestCode.textContent = curl;
+    article.appendChild(requestCode);
+
+    const output = document.createElement('pre');
+    output.className = 'sample';
+    output.textContent = 'No sample loaded.';
+    article.appendChild(output);
+    container.appendChild(article);
+
+    const button = header.querySelector('button');
+    button.addEventListener('click', async () => {
+      button.disabled = true;
+      button.setAttribute('aria-expanded', 'true');
+      button.innerHTML = 'Loading <span>...</span>';
+      output.classList.add('is-visible');
+      output.textContent = 'Loading...';
+      try {
+        const response = await fetch(`samples/${id}.json`);
+        if (!response.ok) throw new Error(`Sample unavailable (HTTP ${response.status}).`);
+        output.textContent = JSON.stringify(await response.json(), null, 2);
+      } catch (error) {
+        output.textContent = `Unable to load sample. ${error.message}`;
+      } finally {
+        button.disabled = false;
+        button.innerHTML = 'Hide sample <span>−</span>';
+      }
+    });
+  }
 }
 
 search.addEventListener('input', () => renderEndpoints(search.value));
