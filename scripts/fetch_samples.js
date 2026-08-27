@@ -59,7 +59,14 @@ async function fetchSample([id, endpoint, body]) {
     fs.writeFileSync(path.join(outputDir, `${id}.json`), JSON.stringify(await fetchSample(endpoint), null, 2) + '\n');
   }
   execFileSync('git', ['add', 'docs/samples'], { stdio: 'inherit' });
-  if (execFileSync('git', ['diff', '--cached', '--quiet']).length === 0) {
+  let hasChanges = true;
+  try {
+    execFileSync('git', ['diff', '--cached', '--quiet'], { stdio: 'ignore' });
+    hasChanges = false;
+  } catch (error) {
+    if (error.status !== 1) throw error;
+  }
+  if (!hasChanges) {
     console.log('No sample changes to commit.');
     return;
   }
