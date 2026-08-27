@@ -22,17 +22,26 @@ const ENDPOINTS = [
 ];
 
 const container = document.getElementById('list');
+const search = document.getElementById('search');
+const count = document.getElementById('count');
 
-for (const [id, title, endpoint, request] of ENDPOINTS) {
+function renderEndpoints(query = '') {
+  const filtered = ENDPOINTS.filter(([, title, endpoint]) => `${title} ${endpoint}`.toLowerCase().includes(query.toLowerCase()));
+  count.textContent = `${filtered.length} of ${ENDPOINTS.length}`;
+  container.replaceChildren();
+
+  for (const [id, title, endpoint, request] of filtered) {
   const article = document.createElement('article');
   article.className = 'api';
-  article.innerHTML = `<div class="endpoint-title"><div><strong>${title}</strong><div class="code">POST ${endpoint}</div></div><button type="button">Load sample</button></div><pre class="sample">No sample loaded.</pre>`;
+  article.innerHTML = `<div class="endpoint-title"><div class="endpoint-name"><span class="method">POST</span><strong>${title}</strong></div><button type="button" aria-expanded="false">View sample <span>+</span></button></div><div class="code">${endpoint}</div><div class="request-label">Example request</div><pre class="request">${JSON.stringify(request, null, 2)}</pre><pre class="sample">No sample loaded.</pre>`;
   container.appendChild(article);
 
   const button = article.querySelector('button');
   const output = article.querySelector('.sample');
   button.addEventListener('click', async () => {
     button.disabled = true;
+    button.setAttribute('aria-expanded', 'true');
+    button.innerHTML = 'Loading <span>...</span>';
     output.classList.add('is-visible');
     output.textContent = 'Loading...';
     try {
@@ -40,9 +49,14 @@ for (const [id, title, endpoint, request] of ENDPOINTS) {
       if (!response.ok) throw new Error(`Sample unavailable (HTTP ${response.status}). Run the Generate Securio samples workflow.`);
       output.textContent = JSON.stringify(await response.json(), null, 2);
     } catch (error) {
-      output.textContent = error.message;
+      output.textContent = `Unable to load sample. ${error.message}`;
     } finally {
       button.disabled = false;
+      button.innerHTML = 'Hide sample <span>−</span>';
     }
   });
 }
+}
+
+search.addEventListener('input', () => renderEndpoints(search.value));
+renderEndpoints();
