@@ -36,7 +36,8 @@ const endpoints = [
 
 async function fetchSample([id, endpoint, body]) {
   console.log(`Fetching ${id}`);
-  try {
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    try {
     const response = await fetch(baseUrl + endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-RapidAPI-Key': apiKey, 'X-RapidAPI-Host': host },
@@ -45,9 +46,16 @@ async function fetchSample([id, endpoint, body]) {
     const text = await response.text();
     let result;
     try { result = JSON.parse(text); } catch { result = { raw: text }; }
+    if (response.status === 429 && attempt < 3) {
+      const delay = 2000 * (attempt + 1);
+      console.log(`Rate limited; retrying ${id} in ${delay / 1000}s`);
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      continue;
+    }
     return { endpoint, sampleRequest: body, result: { status: response.status, ok: response.ok, body: result } };
-  } catch (error) {
-    return { endpoint, sampleRequest: body, result: { status: 0, ok: false, error: String(error) } };
+    } catch (error) {
+      return { endpoint, sampleRequest: body, result: { status: 0, ok: false, error: String(error) } };
+    }
   }
 }
 
@@ -57,6 +65,7 @@ async function fetchSample([id, endpoint, body]) {
   for (const endpoint of endpoints) {
     const [id] = endpoint;
     fs.writeFileSync(path.join(outputDir, `${id}.json`), JSON.stringify(await fetchSample(endpoint), null, 2) + '\n');
+    await new Promise((resolve) => setTimeout(resolve, 1500));
   }
   execFileSync('git', ['add', 'docs/samples'], { stdio: 'inherit' });
   let hasChanges = true;
