@@ -4,10 +4,10 @@
     "url": "https://example.com/test?x=1"
   },
   "result": {
-    "status": 429,
+    "status": 403,
     "ok": false,
     "body": {
-      "message": "Too many requests"
+      "message": "You are not subscribed to this API."
     }
   }
 }

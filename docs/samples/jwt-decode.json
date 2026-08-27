@@ -4,10 +4,10 @@
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
   },
   "result": {
-    "status": 429,
+    "status": 403,
     "ok": false,
     "body": {
-      "message": "Too many requests"
+      "message": "You are not subscribed to this API."
     }
   }
 }

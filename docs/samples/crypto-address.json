@@ -4,10 +4,10 @@
     "address": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
   },
   "result": {
-    "status": 429,
+    "status": 403,
     "ok": false,
     "body": {
-      "message": "Too many requests"
+      "message": "You are not subscribed to this API."
     }
   }
 }
